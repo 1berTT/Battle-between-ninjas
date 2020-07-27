@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>JIRAYA X PAIN</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue"></script>
+</head>
+
+<body>
+    <div id="app">
+        
+        <div class="panel scores">
+            <div class="score">
+                <img class="fotos" v-show="playerLife == 0" src="C:/Users/Cliente/Desktop/Curso Vue/Projeto1/perdendo.png">
+                <img class="fotos" v-show="playerLife > 0" src="C:/Users/Cliente/Desktop/Curso Vue/Projeto1/ganhou.jpg">
+                <h1>JIRAYA</h1>
+                <div class="life-bar">
+                    <div class="life" 
+                        :class="{danger: playerLife < 20}" 
+                        :style="{width: playerLife + '%'}">
+                    </div>
+                </div>
+                <div>{{ playerLife }}%</div>
+            </div>
+
+            <div class="score">
+                <img class="fotos" v-show="monsterLife == 0" src="C:/Users/Cliente/Desktop/Curso Vue/Projeto1/painLose.png">
+                <img class="fotos" v-show="monsterLife > 0" src="C:/Users/Cliente/Desktop/Curso Vue/Projeto1/painWin.jpg">
+                <h1>PAIN</h1>
+                <div class="life-bar">
+                    <div class="life"
+                            :class="{danger: monsterLife < 20}" 
+                            :style="{width: monsterLife + '%'}">
+                    </div>
+                </div>
+                <div>{{ monsterLife }}%</div>
+            </div>
+
+        </div>
+        
+        <div v-if="hasResult" class="panel result">
+            <div v-show="monsterLife == 0" class="win">JIRAYA venceu a batalha !! :)</div>
+            <div v-show="playerLife == 0" class="lose">PAIN venceu a batalha !! :(</div>
+        </div>
+        
+        <div class="panel buttons">
+            <button v-show="running" @click="atack(false)" class="btn atack">Ataque</button>
+            <button v-show="running" @click="atack(true)" class="btn especial-atack">Ataque especial</button>
+            <button v-show="running" @click="healAndHurt()"class="btn heal">Curar</button>
+            <button v-show="running" @click="giveUP()" class="btn give-up">Desistir</button>
+            <button v-show="!running" @click="startGame()" class="btn new-game">Iniciar Jogo</button>
+        </div>
+        
+        <div v-if="logs.length" class="panel logs">
+            <ul>
+                <li v-for="log in logs" :class="log.classe" class="log">
+                    {{log.text}}
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
